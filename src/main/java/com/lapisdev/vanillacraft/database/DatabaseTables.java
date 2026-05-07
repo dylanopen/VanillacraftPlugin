@@ -4,7 +4,7 @@ import static com.lapisdev.vanillacraft.database.Database.createTable;
 
 public class DatabaseTables {
     public static void createTables() {
-        createTable("player (player_id INTEGER PRIMARY KEY AUTOINCREMENT, discord_uuid TEXT, minecraft_uuid TEXT)");
+        createTable("player (player_id INTEGER PRIMARY KEY AUTOINCREMENT, discord_uuid TEXT, minecraft_uuid TEXT, unique(discord_uuid, minecraft_uuid))");
         createTable("region (region_id INTEGER PRIMARY KEY AUTOINCREMENT, regionName TEXT, spawn_x DOUBLE, spawn_y DOUBLE, spawn_z DOUBLE, leader_id INTEGER)");
         createTable("player_region (player_id INTEGER PRIMARY KEY, region_id INTEGER)");
         createTable("team (team_id INTEGER PRIMARY KEY AUTOINCREMENT, teamName TEXT, team_suffix TEXT, team_leader INTEGER)");

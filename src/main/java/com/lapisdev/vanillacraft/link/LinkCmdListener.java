@@ -8,7 +8,7 @@ public class LinkCmdListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
         if (e.getAuthor().isBot()) return;
-        if (!e.getMessage().getContentRaw().startsWith("-link")) return;
+        if (!e.getMessage().getContentRaw().startsWith("-link ")) return;
 
         String[] args = e.getMessage().getContentRaw().split(" ");
         if (args.length != 2) {
