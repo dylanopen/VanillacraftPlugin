@@ -3,6 +3,7 @@ package com.lapisdev.vanillacraft;
 import com.lapisdev.vanillacraft.database.Database;
 import com.lapisdev.vanillacraft.database.DatabaseTables;
 import com.lapisdev.vanillacraft.discord.DiscordModule;
+import com.lapisdev.vanillacraft.kick.KickModule;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +16,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
     public void onEnable() {
         Database.init();
         new DiscordModule();
+        new KickModule();
     }
 
     @Override
