@@ -30,7 +30,7 @@ public class Region {
     }
 
     public void save() {
-        sqlUpdateOrInsert("update region set region_name = ?, spawn_world = ?, spawn_x = ?, spawn_y = ?, spawn_z = ?, leader_id = ? where region_id = ?"
+        sqlUpdateOrInsert("update region set region_name = ?, spawn_world = ?, spawn_x = ?, spawn_y = ?, spawn_z = ?, leader_id = ? where region_id = ?",
                 "insert into region (region_name, spawn_world, spawn_x, spawn_y, spawn_z, leader_id) values (?, ?, ?, ?, ?, ?)",
                 name, spawn.getWorld().getName(), spawn.getX(), spawn.getY(), spawn.getZ(), leader.id, id);
     }
