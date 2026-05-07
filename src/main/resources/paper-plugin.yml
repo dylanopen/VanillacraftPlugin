@@ -1,0 +1,6 @@
+name: VanillacraftPlugin
+version: '${version}'
+
+main: com.lapisdev.vanillacraft.VanillacraftPlugin
+api-version: '26.1.2'
+load: POSTWORLD
