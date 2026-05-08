@@ -1,6 +1,7 @@
 package com.lapisdev.vanillacraft.kick;
 
 import com.lapisdev.vanillacraft.player.ServerPlayer;
+import com.lapisdev.vanillacraft.task.RunTask;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -83,6 +84,7 @@ public class MckickCmdDc extends ListenerAdapter {
                 .build();
         e.replyEmbeds(embed).queue();
 
-        new Kick(player, reasonComponent).execute();
+        Kick kick = new Kick(player, reasonComponent);
+        RunTask.sync(kick::execute);
     }
 }

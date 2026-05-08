@@ -1,6 +1,7 @@
 package com.lapisdev.vanillacraft.kick;
 
 import com.lapisdev.vanillacraft.player.ServerPlayer;
+import com.lapisdev.vanillacraft.task.RunTask;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -21,13 +22,21 @@ public class KickCmdMc {
                 .build());
     }
 
-    private static int execute(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
-        List<Player> players = ctx.getArgument("target", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource());
-        Component reason = ctx.getArgument("reason", Component.class);
-        for (Player player : players) {
-            ServerPlayer dbPlayer = ServerPlayer.fromMinecraftUuid(player.getUniqueId());
-            new Kick(dbPlayer, reason).execute();
-        }
+    private static int execute(CommandContext<CommandSourceStack> ctx) {
+        RunTask.async((_) -> {
+            List<Player> players = null;
+            try {
+                players = ctx.getArgument("target", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource());
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            Component reason = ctx.getArgument("reason", Component.class);
+            for (Player player : players) {
+                ServerPlayer dbPlayer = ServerPlayer.fromMinecraftUuid(player.getUniqueId());
+                Kick kick = new Kick(dbPlayer, reason);
+                RunTask.sync(kick::execute);
+            }
+        });
         return 1;
     }
 }
