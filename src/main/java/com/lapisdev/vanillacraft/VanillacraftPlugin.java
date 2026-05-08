@@ -2,6 +2,7 @@ package com.lapisdev.vanillacraft;
 
 import com.lapisdev.vanillacraft.database.Database;
 import com.lapisdev.vanillacraft.discord.DiscordModule;
+import com.lapisdev.vanillacraft.gamechat.GameChatModule;
 import com.lapisdev.vanillacraft.kick.KickModule;
 import com.lapisdev.vanillacraft.link.LinkModule;
 import com.lapisdev.vanillacraft.log.login.LoginModule;
@@ -22,6 +23,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
         new WhitelistModule();
         new LoginModule();
         new NewSpawnModule();
+        new GameChatModule();
     }
 
     @Override
