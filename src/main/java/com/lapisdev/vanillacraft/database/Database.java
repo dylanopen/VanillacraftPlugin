@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import static com.lapisdev.vanillacraft.VanillacraftPlugin.plugin;
-import static com.lapisdev.vanillacraft.task.RunTask.async;
 
 public class Database {
     public static Connection conn;
@@ -29,12 +28,10 @@ public class Database {
     }
 
     public static void createTable(String table) {
-        async((task) -> {
-            try {
-                conn.createStatement().execute("CREATE TABLE IF NOT EXISTS " + table);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            conn.createStatement().execute("CREATE TABLE IF NOT EXISTS " + table);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

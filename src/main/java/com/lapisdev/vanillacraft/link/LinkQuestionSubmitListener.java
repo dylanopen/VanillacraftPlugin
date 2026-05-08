@@ -1,5 +1,6 @@
 package com.lapisdev.vanillacraft.link;
 
+import com.lapisdev.vanillacraft.task.RunTask;
 import net.dv8tion.jda.api.components.label.Label;
 import net.dv8tion.jda.api.components.textinput.TextInput;
 import net.dv8tion.jda.api.components.textinput.TextInputStyle;
@@ -14,9 +15,10 @@ public class LinkQuestionSubmitListener extends ListenerAdapter {
     public void onModalInteraction(ModalInteractionEvent e) {
         if (!e.getModalId().equals("linkquestion")) return;
         String minecraftUsername = e.getValue("username").getAsString();
-        Linker.link(e.getUser().getId(), Bukkit.getOfflinePlayer(minecraftUsername).getUniqueId());
         e.reply("Thanks! You have successfully linked your discord account to your Minecraft account and can join vanillacraft.org to start playing :)")
                 .setEphemeral(true)
                 .queue();
+        RunTask.async((_) -> Linker.link(e.getUser().getId(), Bukkit.getOfflinePlayer(minecraftUsername).getUniqueId()));
+        // todo: choose a region for the player
     }
 }
