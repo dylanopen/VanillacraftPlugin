@@ -17,8 +17,16 @@ public class Region {
     public Location spawn;
     public ServerPlayer leader;
 
-    public static @Nullable Region fromRegionId(int targetRegionId) {
-        return fromResultSet(sqlSelect("select * from region where region_id = ?", targetRegionId));
+    public static @Nullable Region fromRegionId(int regionId) {
+        return fromResultSet(sqlSelect("select * from region where region_id = ?", regionId));
+    }
+
+    public static @Nullable Region fromRegionName(String regionName) {
+        return fromResultSet(sqlSelect("select * from region where region_name = ?", regionName));
+    }
+
+    public static @Nullable Region fromLeader(ServerPlayer leader) {
+        return fromResultSet(sqlSelect("select * from region where leader_id = ?", leader.id));
     }
 
     public Region() {}
