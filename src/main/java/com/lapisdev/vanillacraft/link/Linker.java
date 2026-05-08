@@ -4,6 +4,7 @@ import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.task.RunTask;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -17,7 +18,11 @@ public class Linker {
             player = new ServerPlayer();
         } else {
             final UUID oldMinecraftUuid = player.minecraftUuid;
-            RunTask.sync(() -> Bukkit.getPlayer(oldMinecraftUuid).kick(Component.text("You have linked your Discord account to another Minecraft account, therefore this Minecraft account can no longer be used.")));
+            RunTask.sync(() -> {
+                Player kickedPlayer = Bukkit.getPlayer(oldMinecraftUuid);
+                if (kickedPlayer == null) return;
+                kickedPlayer.kick(Component.text("You have linked your Discord account to another Minecraft account, therefore this Minecraft account can no longer be used."));
+            });
         }
         player.discordUuid = discordUuid;
         player.minecraftUuid = minecraftUuid;

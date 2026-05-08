@@ -16,7 +16,8 @@ public class Kick {
     }
 
     private Component fullReason() {
-        return Component.text("You have been kicked from the server.\nReason: ", NamedTextColor.GREEN).append(reason);
+        return Component.text("You have been kicked from the server.", NamedTextColor.GRAY)
+                .append(Component.text("\nReason: ", NamedTextColor.WHITE)).append(reason);
     }
 
     public boolean execute() {
