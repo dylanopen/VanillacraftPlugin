@@ -50,7 +50,7 @@ public class Region {
             region.id = rs.getInt("region_id");
             region.name = rs.getString("region_name");
             region.spawn = new Location(
-                    Bukkit.getWorld(rs.getString("spawn_world")),
+                    Bukkit.getWorld("world"),
                     rs.getDouble("spawn_x"),
                     rs.getDouble("spawn_y"),
                     rs.getDouble("spawn_z")
