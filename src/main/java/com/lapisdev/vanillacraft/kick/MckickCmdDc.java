@@ -1,5 +1,6 @@
 package com.lapisdev.vanillacraft.kick;
 
+import com.lapisdev.vanillacraft.discord.Embed;
 import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.task.RunTask;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -44,9 +45,12 @@ public class MckickCmdDc extends ListenerAdapter {
         OptionMapping mcUsername = e.getOption("mcuser");
         OptionMapping reason = e.getOption("reason");
         ServerPlayer player = null;
+
         if (dcUser != null && mcUsername != null) {
-            e.reply("You only need to specify **either** a discord user **or** a minecraft username.")
-                    .setEphemeral(true).queue();
+            e.replyEmbeds(Embed.error(
+                    "Only one user option required",
+                    "You only need to specify **either** a discord user **or** a Minecraft username when kicking a user."
+            )).setEphemeral(true).queue();
             return;
         }
         if (dcUser != null) {
@@ -56,8 +60,10 @@ public class MckickCmdDc extends ListenerAdapter {
             player = ServerPlayer.fromMinecraftUuid(Bukkit.getOfflinePlayer(mcUsername.getAsString()).getUniqueId());
         }
         if (player == null) {
-            e.reply("That player does not exist.")
-                    .setEphemeral(true).queue();
+            e.replyEmbeds(Embed.error(
+                    "That player doesn't exist",
+                    "...Well, at least, they haven't joined the server before. Are you sure you entered the username or discord ping correctly?"
+            )).setEphemeral(true).queue();
             return;
         }
         TextComponent reasonComponent = Component.text("No reason provided.", NamedTextColor.AQUA);
@@ -67,22 +73,18 @@ public class MckickCmdDc extends ListenerAdapter {
 
         Player playerMc = Bukkit.getPlayer(player.minecraftUuid);
         if (playerMc == null) {
-            MessageEmbed embed = new EmbedBuilder()
-                    .setColor(Color.RED)
-                    .appendDescription("That player is not online.")
-                    .build();
-            e.replyEmbeds(embed).setEphemeral(true).queue();
+            e.replyEmbeds(Embed.error(
+                    "That player isn't online",
+                    "...We've definitely seen them around before, but they don't seem to be here right now."
+            )).setEphemeral(true).queue();
             return;
         }
         User playerDc = jda.getUserById(player.discordUuid);
 
-        MessageEmbed embed = new EmbedBuilder()
-                .setColor(Color.ORANGE)
-                .setAuthor(e.getUser().getEffectiveName())
-                .appendDescription("Disconnected " + playerMc.getName() + " (" + playerDc.getAsMention() + ") from the Minecraft server.\n")
-                .appendDescription("Reason: " + reasonComponent.content())
-                .build();
-        e.replyEmbeds(embed).queue();
+        e.replyEmbeds(Embed.result(
+                "Kicked " + playerMc.getName() + " from the game.",
+                "Reason: " + reasonComponent.content()
+        )).queue();
 
         Kick kick = new Kick(player, reasonComponent);
         RunTask.sync(kick::execute);
