@@ -4,6 +4,6 @@ import static com.lapisdev.vanillacraft.VanillacraftPlugin.handle;
 
 public class WhitelistListeners {
     public static void register() {
-        handle(new JoinListener());
+        handle(new WhitelistJoinListener());
     }
 }
