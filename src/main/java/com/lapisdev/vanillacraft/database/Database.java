@@ -1,12 +1,10 @@
 package com.lapisdev.vanillacraft.database;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 
-import static com.lapisdev.vanillacraft.VanillacraftPlugin.async;
 import static com.lapisdev.vanillacraft.VanillacraftPlugin.plugin;
+import static com.lapisdev.vanillacraft.task.RunTask.async;
 
 public class Database {
     public static Connection conn;
