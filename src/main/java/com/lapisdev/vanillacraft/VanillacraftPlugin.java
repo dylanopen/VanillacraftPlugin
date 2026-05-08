@@ -33,10 +33,6 @@ public final class VanillacraftPlugin extends JavaPlugin {
         return (VanillacraftPlugin)Bukkit.getServer().getPluginManager().getPlugin("VanillacraftPlugin");
     }
 
-    public static void async(Consumer<ScheduledTask> consumer) {
-        Bukkit.getServer().getAsyncScheduler().runNow(plugin(), consumer);
-    }
-
     public static void handle(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, plugin());
     }
