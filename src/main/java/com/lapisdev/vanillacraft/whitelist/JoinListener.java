@@ -16,7 +16,8 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player minecraftPlayer = e.getPlayer();
         UUID minecraftUuid = minecraftPlayer.getUniqueId();
-        ServerPlayer player = ServerPlayer.fromMinecraftUuid(minecraftUuid);
+        ServerPlayer player = new ServerPlayer();
+        player.minecraftUuid = minecraftUuid;
         if (player == null) {
             new Kick(player, Component.text("You haven't been whitelisted, or haven't linked your account.\nPlease link using the #get-whitelisted channel on discord!"));
         }

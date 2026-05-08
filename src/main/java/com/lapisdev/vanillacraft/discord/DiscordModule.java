@@ -5,13 +5,13 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import static com.lapisdev.vanillacraft.discord.Discord.jda;
+
 public class DiscordModule {
     public DiscordModule() {
-        JDA jda = JDABuilder.createDefault(System.getenv("VANILLA_DISCORD_BOT_TOKEN"))
+        jda = JDABuilder.createDefault(System.getenv("VANILLA_DISCORD_BOT_TOKEN"))
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
-
-        new LinkModule(jda);
 
         try {
             jda.awaitReady();
