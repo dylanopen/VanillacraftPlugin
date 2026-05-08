@@ -1,33 +1,27 @@
 package com.lapisdev.vanillacraft.link;
 
-import com.lapisdev.vanillacraft.database.Database;
+import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.task.RunTask;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.UUID;
 
 public class Linker {
-    public static void link(String discordUuid, UUID minecraftUuid) {
-        try {
-            PreparedStatement stmt = Database.conn.prepareStatement("insert or replace into player" +
-                    "(player_id, discord_uuid, minecraft_uuid) " +
-                    "values ((select player_id from player where discord_uuid = " + discordUuid + "), ?, ?)");
-            stmt.setString(1, discordUuid);
-            stmt.setString(2, minecraftUuid.toString());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    // Returns `true` if the discord account is not already linked, `false` if it was linked to a different account before.
+    public static boolean link(String discordUuid, UUID minecraftUuid) {
+        ServerPlayer player = ServerPlayer.fromDiscordUuid(discordUuid);
+        boolean hasExistingLink = true;
+        if (player == null) {
+            hasExistingLink = false;
+            player = new ServerPlayer();
+        } else {
+            final UUID oldMinecraftUuid = player.minecraftUuid;
+            RunTask.sync(() -> Bukkit.getPlayer(oldMinecraftUuid).kick(Component.text("You have linked your Discord account to another Minecraft account, therefore this Minecraft account can no longer be used.")));
         }
-
-        try {
-            PreparedStatement stmt = Database.conn.prepareStatement("select player_id from player where discord_uuid = ?");
-            stmt.setString(1, discordUuid);
-            ResultSet rs = stmt.executeQuery();
-            int playerId = rs.getInt("player_id");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        player.discordUuid = discordUuid;
+        player.minecraftUuid = minecraftUuid;
+        player.save();
+        return hasExistingLink;
     }
 }
