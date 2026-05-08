@@ -16,6 +16,16 @@ public class Embed {
                 .build();
     }
 
+    public static MessageEmbed warn(String title, String description) {
+        return new net.dv8tion.jda.api.EmbedBuilder()
+                .setTitle(title)
+                .setDescription(description)
+                .setFooter(FOOTER)
+                .setThumbnail(THUMBNAIL_URL)
+                .setColor(0xCCAA33)
+                .build();
+    }
+
     public static MessageEmbed error(String title, String description) {
         return new net.dv8tion.jda.api.EmbedBuilder()
                 .setTitle(title)
