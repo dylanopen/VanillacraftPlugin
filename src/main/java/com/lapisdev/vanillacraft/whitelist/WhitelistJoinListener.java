@@ -2,7 +2,6 @@ package com.lapisdev.vanillacraft.whitelist;
 
 import com.lapisdev.vanillacraft.kick.Kick;
 import com.lapisdev.vanillacraft.player.ServerPlayer;
-import com.lapisdev.vanillacraft.region.Region;
 import com.lapisdev.vanillacraft.task.RunTask;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
@@ -12,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;
 
-public class JoinListener implements Listener {
+public class WhitelistJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         RunTask.async((_) -> {
