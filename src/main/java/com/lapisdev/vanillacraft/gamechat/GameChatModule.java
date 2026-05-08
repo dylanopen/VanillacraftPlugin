@@ -11,5 +11,6 @@ public class GameChatModule {
     public GameChatModule() {
         discordChatChannel = jda.getTextChannelById(1502443892614762576L);
         handle(new ChatListener());
+        handle(new GameEventListener());
     }
 }
