@@ -6,7 +6,6 @@ import static com.lapisdev.vanillacraft.discord.Discord.jda;
 
 public class LinkModule {
     public LinkModule() {
-        jda.addEventListener(new LinkCmdListener());
         jda.addEventListener(new LinkembedCmdListener());
         jda.addEventListener(new StartLinkClickListener());
         jda.addEventListener(new LinkQuestionSubmitListener());
