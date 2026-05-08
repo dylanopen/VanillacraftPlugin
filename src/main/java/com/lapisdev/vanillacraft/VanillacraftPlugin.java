@@ -6,6 +6,7 @@ import com.lapisdev.vanillacraft.discord.DiscordModule;
 import com.lapisdev.vanillacraft.kick.KickModule;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.function.Consumer;
@@ -30,5 +31,9 @@ public final class VanillacraftPlugin extends JavaPlugin {
 
     public static void async(Consumer<ScheduledTask> consumer) {
         Bukkit.getServer().getAsyncScheduler().runNow(plugin(), consumer);
+    }
+
+    public static void handle(Listener listener) {
+        Bukkit.getPluginManager().registerEvents(listener, plugin());
     }
 }
