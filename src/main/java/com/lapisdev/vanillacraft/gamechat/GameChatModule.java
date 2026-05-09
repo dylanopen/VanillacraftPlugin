@@ -14,6 +14,7 @@ public class GameChatModule {
         handle(new GameEventListener());
         jda.addEventListener(new DiscordChatListener());
         jda.addEventListener(new PlayerlistCmd());
+        jda.addEventListener(new McrestartCmd());
 
         GameEventListener.startup();
     }
