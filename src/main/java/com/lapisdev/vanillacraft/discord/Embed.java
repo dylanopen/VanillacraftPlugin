@@ -1,13 +1,14 @@
 package com.lapisdev.vanillacraft.discord;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.awt.Color;
 
 public class Embed {
-    public String title = "Vanillacraft";
+    public String title = null;
     public String description = null;
-    public Color color = new Color(0x7F33FF);
+    public Color color = null;
     public String thumbnailUrl = "https://i.ibb.co/YrpqTMM/vclogo.png";
     public String footer = "Vanillacraft. No nonsense. Just Minecraft.";
 
@@ -28,7 +29,7 @@ public class Embed {
         return this;
     }
 
-    public Embed thumbnailUrl(String thumbnailUrl) {
+    public Embed thumbnail(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
         return this;
     }
@@ -59,13 +60,13 @@ public class Embed {
     }
 
     public MessageEmbed build() {
-        return new net.dv8tion.jda.api.EmbedBuilder()
-                .setTitle(title)
-                .setDescription(description)
-                .setFooter(footer)
-                .setThumbnail(thumbnailUrl)
-                .setColor(color)
-                .build();
+        EmbedBuilder builder = new EmbedBuilder();
+        if (title != null) builder.setTitle(title);
+        if (description != null) builder.setDescription(description);
+        if (color != null) builder.setColor(color);
+        if (thumbnailUrl != null) builder.setThumbnail(thumbnailUrl);
+        if (footer != null) builder.setFooter(footer);
+        return builder.build();
     }
 
 }
