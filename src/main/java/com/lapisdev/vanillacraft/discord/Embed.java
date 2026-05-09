@@ -9,7 +9,7 @@ public class Embed {
     public String title = null;
     public String description = null;
     public Color color = null;
-    public String thumbnailUrl = "https://i.ibb.co/YrpqTMM/vclogo.png";
+    public String thumbnailUrl = null;
     public String footer = null;
 
     public Embed() {}
@@ -31,6 +31,11 @@ public class Embed {
 
     public Embed thumbnail(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
+        return this;
+    }
+
+    public Embed thumbnail() {
+        this.thumbnailUrl = "https://i.ibb.co/YrpqTMM/vclogo.png";
         return this;
     }
 

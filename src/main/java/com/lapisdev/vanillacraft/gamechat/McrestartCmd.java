@@ -31,7 +31,7 @@ public class McrestartCmd extends ListenerAdapter {
         e.replyEmbeds(new Embed().resultColor()
                 .title("Initiated a server restart")
                 .description("Server will restart in 30 seconds")
-                .build()).setEphemeral(true).queue();
+                .build()).queue();
         Bukkit.getServer().sendMessage(Component.text("The server has been force-restarted by an administrator. Please be ready for a restart in 30 seconds.", NamedTextColor.RED));
         RunTask.sync(Bukkit::shutdown, 30*20);
     }

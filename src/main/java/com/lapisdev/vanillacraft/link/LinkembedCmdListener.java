@@ -19,7 +19,7 @@ public class LinkembedCmdListener extends ListenerAdapter {
                 .title("Link your Discord and Minecraft accounts together")
                 .description("To get whitelisted to Vanillacraft, please click the **Link Account!** button above and enter your Minecraft username!\n\n" +
                         "*We will never ask for email addresses, passwords, 2FA codes, or other personal information.*")
-                .footer()
+                .footer().thumbnail()
                 .build()).addComponents(ActionRow.of(
                 Button.success("startlink", "Link Account!").withEmoji(Emoji.fromUnicode("🔗"))
         )).queue();
