@@ -16,6 +16,7 @@ public class DatabaseTables {
             createTable("player_staff_role (player_id INTEGER, staff_role_id INTEGER)");
 
             createTable("player_login (player_id INTEGER, login_time INTEGER, login_world STRING, login_x DOUBLE, login_y DOUBLE, login_z DOUBLE)");
+            createTable("ban (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, player_id INTEGER, ban_reason TEXT, ban_end_time LONG)");
         });
     }
 }
