@@ -15,11 +15,12 @@ public class LinkembedCmdListener extends ListenerAdapter {
 
         e.getMessage().delete().queue();
 
-        e.getChannel().sendMessageEmbeds(Embed.info(
-                "Link your Discord and Minecraft accounts together",
-                "To get whitelisted to Vanillacraft, please click the **Link Account!** button above and enter your Minecraft username!\n\n" +
-                        "*We will never ask for email addresses, passwords, 2FA codes, or other personal information.*"
-        )).addComponents(ActionRow.of(
+        e.getChannel().sendMessageEmbeds(new Embed().infoColor()
+                .title("Link your Discord and Minecraft accounts together")
+                .description("To get whitelisted to Vanillacraft, please click the **Link Account!** button above and enter your Minecraft username!\n\n" +
+                        "*We will never ask for email addresses, passwords, 2FA codes, or other personal information.*")
+                .footer().thumbnail()
+                .build()).addComponents(ActionRow.of(
                 Button.success("startlink", "Link Account!").withEmoji(Emoji.fromUnicode("🔗"))
         )).queue();
     }

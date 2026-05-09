@@ -46,5 +46,7 @@ public class LinkQuestionSubmitListener extends ListenerAdapter {
         e.reply("Thanks! You have successfully linked your discord account to your Minecraft account and can join vanillacraft.org to start playing :)\n" +
                         "You have been placed in the **" + regionName + "** region, and will start out there!")
                 .setEphemeral(true).queue();
+
+        e.getMember().modifyNickname(minecraftUsername).queue();
     }
 }

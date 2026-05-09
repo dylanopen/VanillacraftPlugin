@@ -1,38 +1,82 @@
 package com.lapisdev.vanillacraft.discord;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
+import java.awt.Color;
+
 public class Embed {
-    public static final String THUMBNAIL_URL = "https://i.ibb.co/YrpqTMM/vclogo.png";
-    public static final String FOOTER = "Vanillacraft. No nonsense. Just Minecraft.";
+    public String title = null;
+    public String description = null;
+    public Color color = null;
+    public String thumbnailUrl = null;
+    public String footer = null;
 
-    public static MessageEmbed info(String title, String description) {
-        return new net.dv8tion.jda.api.EmbedBuilder()
-                .setTitle(title)
-                .setDescription(description)
-                .setFooter(FOOTER)
-                .setThumbnail(THUMBNAIL_URL)
-                .setColor(0x7F33FF)
-                .build();
+    public Embed() {}
+
+    public Embed title(String title) {
+        this.title = title;
+        return this;
     }
 
-    public static MessageEmbed error(String title, String description) {
-        return new net.dv8tion.jda.api.EmbedBuilder()
-                .setTitle(title)
-                .setDescription(description)
-                .setFooter(FOOTER)
-                .setThumbnail(THUMBNAIL_URL)
-                .setColor(0xFF3333)
-                .build();
+    public Embed description(String description) {
+        this.description = description;
+        return this;
     }
 
-    public static MessageEmbed result(String title, String description) {
-        return new net.dv8tion.jda.api.EmbedBuilder()
-                .setTitle(title)
-                .setDescription(description)
-                .setFooter(FOOTER)
-                .setThumbnail(THUMBNAIL_URL)
-                .setColor(0x33FF33)
-                .build();
+    public Embed color(Color color) {
+        this.color = color;
+        return this;
     }
+
+    public Embed thumbnail(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+        return this;
+    }
+
+    public Embed thumbnail() {
+        this.thumbnailUrl = "https://i.ibb.co/YrpqTMM/vclogo.png";
+        return this;
+    }
+
+    public Embed footer(String footer) {
+        this.footer = footer;
+        return this;
+    }
+
+    public Embed footer() {
+        this.footer = "Vanillacraft. No nonsense. Just Minecraft.";
+        return this;
+    }
+
+    public Embed infoColor() {
+        this.color = new Color(0x7F33FF);
+        return this;
+    }
+
+    public Embed warnColor() {
+        this.color = new Color(0xCCAA33);
+        return this;
+    }
+
+    public Embed errorColor() {
+        this.color = new Color(0xFF3333);
+        return this;
+    }
+
+    public Embed resultColor() {
+        this.color = new Color(0x33FF33);
+        return this;
+    }
+
+    public MessageEmbed build() {
+        EmbedBuilder builder = new EmbedBuilder();
+        if (title != null) builder.setTitle(title);
+        if (description != null) builder.setDescription(description);
+        if (color != null) builder.setColor(color);
+        if (thumbnailUrl != null) builder.setThumbnail(thumbnailUrl);
+        if (footer != null) builder.setFooter(footer);
+        return builder.build();
+    }
+
 }

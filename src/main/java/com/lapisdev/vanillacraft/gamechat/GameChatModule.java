@@ -1,0 +1,26 @@
+package com.lapisdev.vanillacraft.gamechat;
+
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import static com.lapisdev.vanillacraft.VanillacraftPlugin.handle;
+import static com.lapisdev.vanillacraft.discord.Discord.jda;
+
+public class GameChatModule {
+    public static TextChannel discordChatChannel;
+
+    public GameChatModule() {
+        discordChatChannel = jda.getTextChannelById(1502443892614762576L);
+        handle(new ChatListener());
+        handle(new GameEventListener());
+        jda.addEventListener(new DiscordChatListener());
+        jda.addEventListener(new PlayerlistCmd());
+        jda.addEventListener(new McrestartCmd());
+
+        GameEventListener.startup();
+    }
+
+    public void disable() {
+        if (GameChatDiscord.lastWebhook != null) GameChatDiscord.lastWebhook.delete().queue();
+        GameEventListener.shutdown();
+    }
+}

@@ -27,17 +27,6 @@ import java.awt.Color;
 import static com.lapisdev.vanillacraft.discord.Discord.jda;
 
 public class MckickCmdDc extends ListenerAdapter {
-    public static void register() {
-        jda.updateCommands().addCommands(Commands.slash("mckick", "Kick a player from the Minecraft server, given their Minecraft username or a Discord ping.")
-                        .addOptions(new OptionData(OptionType.USER, "dcuser", "Kick a player's Minecraft account associated with this discord account."))
-                        .addOptions(new OptionData(OptionType.STRING, "mcuser", "Kick the Minecraft account with the given username."))
-                        .addOptions(new OptionData(OptionType.STRING, "reason", "The reason to provide for the kick."))
-                        .setContexts(InteractionContextType.GUILD)
-                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE)))
-                .queue();
-        jda.addEventListener(new MckickCmdDc());
-    }
-
     @Override
     public void onSlashCommandInteraction(@NonNull SlashCommandInteractionEvent e) {
         if (!e.getName().equals("mckick")) return;
@@ -47,10 +36,10 @@ public class MckickCmdDc extends ListenerAdapter {
         ServerPlayer player = null;
 
         if (dcUser != null && mcUsername != null) {
-            e.replyEmbeds(Embed.error(
-                    "Only one user option required",
-                    "You only need to specify **either** a discord user **or** a Minecraft username when kicking a user."
-            )).setEphemeral(true).queue();
+            e.replyEmbeds(new Embed().errorColor()
+                    .title("Only one user option required")
+                    .description("You only need to specify **either** a discord user **or** a Minecraft username when kicking a user.")
+                    .build()).setEphemeral(true).queue();
             return;
         }
         if (dcUser != null) {
@@ -60,10 +49,10 @@ public class MckickCmdDc extends ListenerAdapter {
             player = ServerPlayer.fromMinecraftUuid(Bukkit.getOfflinePlayer(mcUsername.getAsString()).getUniqueId());
         }
         if (player == null) {
-            e.replyEmbeds(Embed.error(
-                    "That player doesn't exist",
-                    "...Well, at least, they haven't joined the server before. Are you sure you entered the username or discord ping correctly?"
-            )).setEphemeral(true).queue();
+            e.replyEmbeds(new Embed().errorColor()
+                    .title("That player doesn't exist")
+                    .description("...Well, at least, they haven't joined the server before. Are you sure you entered the username or discord ping correctly?")
+                    .build()).setEphemeral(true).queue();
             return;
         }
         TextComponent reasonComponent = Component.text("No reason provided.", NamedTextColor.AQUA);
@@ -73,18 +62,19 @@ public class MckickCmdDc extends ListenerAdapter {
 
         Player playerMc = Bukkit.getPlayer(player.minecraftUuid);
         if (playerMc == null) {
-            e.replyEmbeds(Embed.error(
-                    "That player isn't online",
-                    "...We've definitely seen them around before, but they don't seem to be here right now."
-            )).setEphemeral(true).queue();
+            e.replyEmbeds(new Embed().errorColor()
+                    .title("That player isn't online")
+                    .description("...We've definitely seen them around before, but they don't seem to be here right now.")
+                    .build()).setEphemeral(true).queue();
             return;
         }
         User playerDc = jda.getUserById(player.discordUuid);
 
-        e.replyEmbeds(Embed.result(
-                "Kicked " + playerMc.getName() + " from the game.",
-                "Reason: " + reasonComponent.content()
-        )).queue();
+        e.replyEmbeds(new Embed().resultColor()
+                .title("Kicked " + playerMc.getName() + " from the game.")
+                .description("Reason: " + reasonComponent.content())
+                .footer()
+                .build()).queue();
 
         Kick kick = new Kick(player, reasonComponent);
         RunTask.sync(kick::execute);
