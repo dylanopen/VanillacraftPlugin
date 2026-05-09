@@ -5,11 +5,13 @@ import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.task.RunTask;
 import net.dv8tion.jda.api.entities.User;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -80,4 +82,16 @@ public class GameEventListener implements Listener {
         });
     }
 
+    @EventHandler
+    public void onDeath (PlayerDeathEvent e) {
+        RunTask.async(_ -> {
+            if (!e.getShowDeathMessages()) return;
+            ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getEntity().getUniqueId());
+            String deathMessage = e.getDeathMessage();
+            GameChatDiscord.send(player, new Embed().infoColor()
+                    .title(deathMessage)
+                    .thumbnail(null)
+                    .build());
+        });
+    }
 }
