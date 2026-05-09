@@ -1,5 +1,6 @@
 package com.lapisdev.vanillacraft;
 
+import com.lapisdev.vanillacraft.ban.BanModule;
 import com.lapisdev.vanillacraft.database.Database;
 import com.lapisdev.vanillacraft.discord.DiscordModule;
 import com.lapisdev.vanillacraft.gamechat.GameChatModule;
@@ -20,6 +21,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
     LoginModule loginModule;
     NewSpawnModule newSpawnModule;
     GameChatModule gameChatModule;
+    BanModule banModule;
 
     @Override
     public void onEnable() {
@@ -31,6 +33,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
         loginModule = new LoginModule();
         newSpawnModule = new NewSpawnModule();
         gameChatModule = new GameChatModule();
+        banModule = new BanModule();
     }
 
     @Override
