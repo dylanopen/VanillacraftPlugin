@@ -12,6 +12,7 @@ public class GameChatModule {
         discordChatChannel = jda.getTextChannelById(1502443892614762576L);
         handle(new ChatListener());
         handle(new GameEventListener());
+        jda.addEventListener(new DiscordChatListener());
     }
 
     public void disable() {
