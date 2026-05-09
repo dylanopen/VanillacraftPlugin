@@ -18,13 +18,6 @@ import java.util.ArrayList;
 import static com.lapisdev.vanillacraft.discord.Discord.jda;
 
 public class PlayerlistCmd extends ListenerAdapter {
-    public PlayerlistCmd() {
-        jda.updateCommands().addCommands(Commands.slash("playerlist", "Get a list of all players currently online on the Minecraft server.")
-                .setContexts(InteractionContextType.GUILD)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.VIEW_CHANNEL)))
-                .queue();
-    }
-
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
         if (!e.getName().equals("playerlist")) return;

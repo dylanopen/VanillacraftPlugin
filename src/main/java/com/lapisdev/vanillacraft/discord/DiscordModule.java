@@ -12,6 +12,7 @@ public class DiscordModule {
         jda = JDABuilder.createDefault(System.getenv("VANILLA_DISCORD_BOT_TOKEN"))
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
+        new DiscordCommands();
 
         try {
             jda.awaitReady();

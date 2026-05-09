@@ -9,7 +9,5 @@ public class KickCommandRegistry {
         plugin().getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, (registry) -> {
             KickCmdMc.register(registry.registrar());
         });
-
-        MckickCmdDc.register();
     }
 }

@@ -27,17 +27,6 @@ import java.awt.Color;
 import static com.lapisdev.vanillacraft.discord.Discord.jda;
 
 public class MckickCmdDc extends ListenerAdapter {
-    public static void register() {
-        jda.updateCommands().addCommands(Commands.slash("mckick", "Kick a player from the Minecraft server, given their Minecraft username or a Discord ping.")
-                        .addOptions(new OptionData(OptionType.USER, "dcuser", "Kick a player's Minecraft account associated with this discord account."))
-                        .addOptions(new OptionData(OptionType.STRING, "mcuser", "Kick the Minecraft account with the given username."))
-                        .addOptions(new OptionData(OptionType.STRING, "reason", "The reason to provide for the kick."))
-                        .setContexts(InteractionContextType.GUILD)
-                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE)))
-                .queue();
-        jda.addEventListener(new MckickCmdDc());
-    }
-
     @Override
     public void onSlashCommandInteraction(@NonNull SlashCommandInteractionEvent e) {
         if (!e.getName().equals("mckick")) return;

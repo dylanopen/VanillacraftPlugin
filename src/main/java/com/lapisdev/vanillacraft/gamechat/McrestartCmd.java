@@ -18,13 +18,6 @@ import org.bukkit.entity.Player;
 import static com.lapisdev.vanillacraft.discord.Discord.jda;
 
 public class McrestartCmd extends ListenerAdapter {
-    public McrestartCmd() {
-        jda.updateCommands().addCommands(Commands.slash("mcrestart", "Restart the Minecraft server, only to be used if something is wrong and it needs a restart.")
-                .setContexts(InteractionContextType.GUILD)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE)))
-                .queue();
-    }
-
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
         if (!e.getName().equals("mcrestart")) return;
