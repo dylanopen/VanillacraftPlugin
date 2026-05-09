@@ -20,10 +20,10 @@ public class GameEventListener implements Listener {
             ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId());
             if (!e.getPlayer().hasPlayedBefore()) {
                 User discordUser = jda.retrieveUserById(player.discordUuid).complete();
-                GameChatDiscord.send(player, Embed.result(
-                        e.getPlayer().getName() + " joined the Minecraft server for the first time!",
-                        "Welcome to the server, " + discordUser.getAsMention() + "! We hope you enjoy your time here with us."
-                ));
+                GameChatDiscord.send(player, new Embed().resultColor()
+                        .title(e.getPlayer().getName() + " joined the Minecraft server for the first time!")
+                        .description("Welcome to the server, " + discordUser.getAsMention() + "! We hope you enjoy your time here with us.")
+                        .build());
                 return;
             }
 
@@ -33,10 +33,10 @@ public class GameEventListener implements Listener {
             }
             playersOnline = playersOnline.substring(0, playersOnline.length() - 2);
 
-            GameChatDiscord.send(ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId()), Embed.info(
-                    e.getPlayer().getName() + " rejoined the Minecraft server!",
-                    "Players online: " + playersOnline
-            ));
+            GameChatDiscord.send(ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId()), new Embed().infoColor()
+                    .title(e.getPlayer().getName() + " rejoined the Minecraft server!")
+                    .description("Players online: " + playersOnline)
+                    .build());
         });
     }
 
@@ -50,10 +50,10 @@ public class GameEventListener implements Listener {
                 playersOnline += mcPlayer.getName() + ", ";
             }
 
-            GameChatDiscord.send(player, Embed.warn(
-                    e.getPlayer().getName() + " left the Minecraft server!",
-                    "Players online: " + playersOnline
-            ));
+            GameChatDiscord.send(player, new Embed().warnColor()
+                    .title(e.getPlayer().getName() + " left the Minecraft server!")
+                    .description("Players online: " + playersOnline)
+                    .build());
         });
     }
 }
