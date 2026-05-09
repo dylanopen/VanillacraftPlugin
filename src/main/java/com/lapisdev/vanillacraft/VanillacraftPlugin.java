@@ -13,22 +13,30 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class VanillacraftPlugin extends JavaPlugin {
+    DiscordModule discordModule;
+    LinkModule linkModule;
+    KickModule kickModule;
+    WhitelistModule whitelistModule;
+    LoginModule loginModule;
+    NewSpawnModule newSpawnModule;
+    GameChatModule gameChatModule;
 
     @Override
     public void onEnable() {
         Database.init();
-        new DiscordModule();
-        new LinkModule();
-        new KickModule();
-        new WhitelistModule();
-        new LoginModule();
-        new NewSpawnModule();
-        new GameChatModule();
+        discordModule = new DiscordModule();
+        linkModule = new LinkModule();
+        kickModule = new KickModule();
+        whitelistModule = new WhitelistModule();
+        loginModule = new LoginModule();
+        newSpawnModule = new NewSpawnModule();
+        gameChatModule = new GameChatModule();
     }
 
     @Override
     public void onDisable() {
         Database.close();
+        gameChatModule.disable();
     }
 
     public static VanillacraftPlugin plugin() {
