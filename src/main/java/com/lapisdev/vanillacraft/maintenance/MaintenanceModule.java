@@ -1,0 +1,17 @@
+package com.lapisdev.vanillacraft.maintenance;
+
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+
+import static com.lapisdev.vanillacraft.VanillacraftPlugin.handle;
+import static com.lapisdev.vanillacraft.VanillacraftPlugin.plugin;
+
+public class MaintenanceModule {
+    public MaintenanceModule() {
+        plugin().getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, (registry) -> {
+            MaintenanceCmdMc.register(registry.registrar());
+        });
+        handle(new MaintenanceJoinListener());
+
+//        jda.addEventListener(new MaintenanceCmdDc());
+    }
+}

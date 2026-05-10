@@ -7,6 +7,7 @@ import com.lapisdev.vanillacraft.gamechat.GameChatModule;
 import com.lapisdev.vanillacraft.kick.KickModule;
 import com.lapisdev.vanillacraft.link.LinkModule;
 import com.lapisdev.vanillacraft.log.login.LoginModule;
+import com.lapisdev.vanillacraft.maintenance.MaintenanceModule;
 import com.lapisdev.vanillacraft.newspawn.NewSpawnModule;
 import com.lapisdev.vanillacraft.team.TeamModule;
 import com.lapisdev.vanillacraft.whitelist.WhitelistModule;
@@ -23,6 +24,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
     NewSpawnModule newSpawnModule;
     GameChatModule gameChatModule;
     BanModule banModule;
+    MaintenanceModule maintenanceModule;
     TeamModule teamModule;
 
     @Override
@@ -36,6 +38,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
         newSpawnModule = new NewSpawnModule();
         gameChatModule = new GameChatModule();
         banModule = new BanModule();
+        maintenanceModule = new MaintenanceModule();
         teamModule = new TeamModule();
     }
 
