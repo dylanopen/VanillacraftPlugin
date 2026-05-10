@@ -1,4 +1,4 @@
-package com.lapisdev.vanillacraft.maintainance;
+package com.lapisdev.vanillacraft.maintenance;
 
 import com.lapisdev.vanillacraft.kick.Kick;
 import com.lapisdev.vanillacraft.player.ServerPlayer;

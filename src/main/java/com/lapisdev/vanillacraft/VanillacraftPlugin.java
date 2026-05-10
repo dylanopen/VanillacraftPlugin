@@ -7,7 +7,7 @@ import com.lapisdev.vanillacraft.gamechat.GameChatModule;
 import com.lapisdev.vanillacraft.kick.KickModule;
 import com.lapisdev.vanillacraft.link.LinkModule;
 import com.lapisdev.vanillacraft.log.login.LoginModule;
-import com.lapisdev.vanillacraft.maintainance.MaintenanceModule;
+import com.lapisdev.vanillacraft.maintenance.MaintenanceModule;
 import com.lapisdev.vanillacraft.newspawn.NewSpawnModule;
 import com.lapisdev.vanillacraft.whitelist.WhitelistModule;
 import org.bukkit.Bukkit;

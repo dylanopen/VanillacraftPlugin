@@ -1,4 +1,4 @@
-package com.lapisdev.vanillacraft.maintainance;
+package com.lapisdev.vanillacraft.maintenance;
 
 import com.mojang.brigadier.context.CommandContext;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
