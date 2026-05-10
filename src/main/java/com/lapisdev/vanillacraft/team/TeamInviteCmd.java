@@ -27,6 +27,8 @@ public class TeamInviteCmd {
         invite.player = targetPlayer;
         invite.team = team;
         invite.save();
+
+        mcplayer.sendMessage("You have invited " + targetMCPlayer.getName() + " to " + team.name);
         return 1;
     }
 }

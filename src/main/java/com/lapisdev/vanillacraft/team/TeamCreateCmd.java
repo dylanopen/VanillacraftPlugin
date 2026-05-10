@@ -13,22 +13,22 @@ public class TeamCreateCmd {
         String suffix = ctx.getArgument("suffix", String.class);
         ServerPlayer player = ServerPlayer.fromMinecraftUuid(mcplayer.getUniqueId());
 
-        if (suffix.length() < 6){
-            mcplayer.sendMessage("The team suffix must be less than 6 letters long");
+        if (suffix.length() > 6) {
+            mcplayer.sendMessage("The team suffix must be at most 5 letters long");
             return 0;
         }
 
-        if (Team.fromTeamName(name) != null){
+        if (Team.fromTeamName(name) != null) {
             mcplayer.sendMessage("There is already a team with that name");
             return 0;
         }
 
-        if (Team.fromTeamSuffix(suffix) != null){
+        if (Team.fromTeamSuffix(suffix) != null) {
             mcplayer.sendMessage("There is already a team with that name");
             return 0;
         }
 
-        if (Team.fromTeamLeader(player) != null){
+        if (Team.fromTeamLeader(player) != null) {
             mcplayer.sendMessage("You already have made a team");
             return 0;
         }
@@ -40,6 +40,10 @@ public class TeamCreateCmd {
         team.suffix = suffix.toUpperCase();
         team.leader = player;
         team.save();
+        team = Team.fromTeamName(name);
+
+        new PlayerTeam(player, team).save();
+        mcplayer.sendMessage("You have created team " + name + " with the suffix [" + suffix.toUpperCase() + "]");
 
         return 1;
     }

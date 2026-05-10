@@ -8,20 +8,26 @@ import org.bukkit.entity.Player;
 
 import static com.lapisdev.vanillacraft.database.Query.sqlDelete;
 
-public class TeamLeaveCmd {
+public class TeamAcceptCmd {
     public static int execute(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         Player mcplayer = (Player) ctx.getSource().getExecutor();
         ServerPlayer player = ServerPlayer.fromMinecraftUuid(mcplayer.getUniqueId());
-        Team team = Team.fromTeamMember(player);
+        String name = ctx.getArgument("name", String.class);
+        Team team = Team.fromTeamName(name);
 
-        if (team == null){
-            mcplayer.sendMessage("You are not in a team");
+        if (team == null) {
+            mcplayer.sendMessage("That team does not exist.");
             return 0;
         }
 
-        sqlDelete("delete from player_team where player_id = ?", player);
+        if(!TeamInvite.playerHasInvite(player, team)) {
+            mcplayer.sendMessage("You do not have an invite from that team");
+            return 0;
+        }
 
-        mcplayer.sendMessage("You have left " + team.name);
+        new PlayerTeam(player, team).save();
+        sqlDelete("delete from team_invite where player_id = ? and team_id = ?", player.id, team.id);
+        mcplayer.sendMessage("You have joined " + team.name);
 
         return 1;
     }

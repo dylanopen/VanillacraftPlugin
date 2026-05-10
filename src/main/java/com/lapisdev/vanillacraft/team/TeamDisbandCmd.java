@@ -18,6 +18,8 @@ public class TeamDisbandCmd {
         }
 
         team.delete();
+
+        mcplayer.sendMessage("You have disbanded " + team.name);
         return 1;
     }
 }

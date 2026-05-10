@@ -43,8 +43,8 @@ public class Team {
     }
 
     public void save() {
-        sqlUpdateOrInsert("update team set team_name = ?, leader_id = ? where team_id = ?",
-                "insert into team (team_name, team_suffix, leader_id) values (?, ?, ?)",
+        sqlUpdateOrInsert("update team set team_name = ?, team_suffix = ?, team_leader = ? where team_id = ?",
+                "insert into team (team_name, team_suffix, team_leader) values (?, ?, ?)",
                 name, suffix, leader.id, id);
     }
 
@@ -60,7 +60,7 @@ public class Team {
             team.id = rs.getInt("team_id");
             team.name = rs.getString("team_name");
             team.suffix = rs.getString("team_suffix");
-            team.leader = ServerPlayer.fromId(rs.getInt("leader_id"));
+            team.leader = ServerPlayer.fromId(rs.getInt("team_leader"));
             return team;
         } catch (SQLException e) {
             throw new RuntimeException(e);
