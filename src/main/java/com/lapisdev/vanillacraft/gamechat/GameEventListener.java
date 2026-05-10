@@ -103,7 +103,7 @@ public class GameEventListener implements Listener {
 
     public static void shutdown() {
         GameChatModule.discordChatChannel.sendMessageEmbeds(new Embed().errorColor()
-                .title(":red_square: Vanillacraft is shutting down, it will be back up within a few minutes!")
+                .title(":red_square: Vanillacraft is stopping, it will be back in a few minutes!")
                 .build()).queue();
     }
 }

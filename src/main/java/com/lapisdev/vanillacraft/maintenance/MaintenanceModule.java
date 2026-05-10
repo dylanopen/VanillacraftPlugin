@@ -4,6 +4,7 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 
 import static com.lapisdev.vanillacraft.VanillacraftPlugin.handle;
 import static com.lapisdev.vanillacraft.VanillacraftPlugin.plugin;
+import static com.lapisdev.vanillacraft.discord.Discord.jda;
 
 public class MaintenanceModule {
     public MaintenanceModule() {
@@ -12,6 +13,7 @@ public class MaintenanceModule {
         });
         handle(new MaintenanceJoinListener());
 
-//        jda.addEventListener(new MaintenanceCmdDc());
+        jda.addEventListener(new MaintenanceOnCmdDc());
+        jda.addEventListener(new MaintenanceOffCmdDc());
     }
 }

@@ -33,7 +33,15 @@ public class DiscordCommands {
 
                 Commands.slash("playerlist", "Get a list of all players currently online on the Minecraft server.")
                         .setContexts(InteractionContextType.GUILD)
-                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.VIEW_CHANNEL))
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.VIEW_CHANNEL)),
+
+                Commands.slash("maintenance-on", "Put the Minecraft server under maintenance, kicking all non-staff members after 10 seconds.")
+                        .setContexts(InteractionContextType.GUILD)
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE)),
+
+                Commands.slash("maintenance-off", "Take the Minecraft server out of maintenance mode, allowing all members to join again.")
+                        .setContexts(InteractionContextType.GUILD)
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE))
 
         ).queue();
     }
