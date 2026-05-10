@@ -14,6 +14,7 @@ public class DatabaseTables {
             createTable("player_team (player_id INTEGER PRIMARY KEY, team_id INTEGER)");
             createTable("staff_role (staff_role_id INTEGER PRIMARY KEY AUTOINCREMENT, staff_role_name TEXT, staff_role_luckperms_group TEXT)");
             createTable("player_staff_role (player_id INTEGER, staff_role_id INTEGER)");
+            createTable("team_invite (team_invite_id INTEGER PRIMARY KEY AUTOINCREMENT, player_id INTEGER, team_id INTEGER)");
 
             createTable("player_login (player_id INTEGER, login_time INTEGER, login_world STRING, login_x DOUBLE, login_y DOUBLE, login_z DOUBLE)");
             createTable("ban (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, player_id INTEGER, ban_reason TEXT, ban_end_time LONG)");
