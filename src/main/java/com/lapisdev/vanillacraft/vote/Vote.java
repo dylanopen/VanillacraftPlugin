@@ -42,7 +42,7 @@ public class Vote {
     public void save(){
         sqlUpdateOrInsert("update vote set player_id = ?, region_id = ?, candidate_id = ? where vote_id = ?",
                 "insert into vote (player_id, region_id, candidate_id) values (?, ?, ?)",
-                player, region, candidate, id);
+                player.id, region.id, candidate.id, id);
     }
 
     private static @Nullable Vote fromResultSet(ResultSet rs){

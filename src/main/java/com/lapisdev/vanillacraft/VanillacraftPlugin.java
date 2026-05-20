@@ -9,7 +9,9 @@ import com.lapisdev.vanillacraft.link.LinkModule;
 import com.lapisdev.vanillacraft.log.login.LoginModule;
 import com.lapisdev.vanillacraft.maintenance.MaintenanceModule;
 import com.lapisdev.vanillacraft.newspawn.NewSpawnModule;
+import com.lapisdev.vanillacraft.region.RegionModule;
 import com.lapisdev.vanillacraft.team.TeamModule;
+import com.lapisdev.vanillacraft.vote.VoteModule;
 import com.lapisdev.vanillacraft.whitelist.WhitelistModule;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -26,6 +28,8 @@ public final class VanillacraftPlugin extends JavaPlugin {
     BanModule banModule;
     MaintenanceModule maintenanceModule;
     TeamModule teamModule;
+    RegionModule regionModule;
+    VoteModule voteModule;
 
     @Override
     public void onEnable() {
@@ -40,6 +44,8 @@ public final class VanillacraftPlugin extends JavaPlugin {
         banModule = new BanModule();
         maintenanceModule = new MaintenanceModule();
         teamModule = new TeamModule();
+        regionModule = new RegionModule();
+        voteModule = new VoteModule();
     }
 
     @Override

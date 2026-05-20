@@ -15,8 +15,11 @@ public class VoteModule {
 
     public static void registerCommands(Commands r){
         r.register(Commands.literal("vote")
-                .then(Commands.argument("name", StringArgumentType.string())
-                        .executes(VoteCmd::execute))
+                .then(Commands.literal("for")
+                        .then(Commands.argument("name", StringArgumentType.string())
+                                .executes(VoteForCmd::execute)))
+                .then(Commands.literal("run")
+                                .executes(VoteRunCmd::execute))
                 .build());
     }
 }

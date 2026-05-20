@@ -7,6 +7,8 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+
 public class RegionAddPoiCmd {
     public static int execute(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         Player mcplayer = (Player) ctx.getSource().getExecutor();
@@ -14,11 +16,13 @@ public class RegionAddPoiCmd {
         Region region = (PlayerRegion.fromPlayer(player)).region;
         ServerPlayer leader = region.leader;
 
-        if (leader == player){
-            if ((region.poiLocations).size() <= 5){
-                region.poiLocations.add(ctx.getArgument("point of interest", String.class) + " - " +
-                        ctx.getArgument("x coordinate", Integer.class) + ctx.getArgument("y coordinate", Integer.class) + ctx.getArgument("z coordinate", Integer.class));
-                region.save();
+        System.out.println(region.name + ", leader = " + region.leader.id + ", executed by " + player.id);
+
+        ArrayList<RegionPoi> pois = RegionPoi.fromRegionId(region);
+        if (leader.equals(player)){
+            if (pois.size() <= 5){
+                RegionPoi poi = new RegionPoi(region, ctx.getArgument("x coordinate", Integer.class), ctx.getArgument("y coordinate", Integer.class), ctx.getArgument("z coordinate", Integer.class), ctx.getArgument("point of interest name", String.class));
+                poi.save();
                 mcplayer.sendMessage(Component.text("You have added a new POI to your region"));
                 return 1;
             }

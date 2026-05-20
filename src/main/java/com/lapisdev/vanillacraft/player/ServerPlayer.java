@@ -2,6 +2,7 @@ package com.lapisdev.vanillacraft.player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.lapisdev.vanillacraft.database.Query.sqlSelect;
@@ -42,5 +43,11 @@ public class ServerPlayer {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ServerPlayer player)) return false;
+        return player.id == this.id;
     }
 }

@@ -25,13 +25,13 @@ public class RegionModule {
                                         .then(Commands.argument("z coordinate", IntegerArgumentType.integer())
                                                 .executes(RegionSetSpawnCmd::execute)))))
                 .then(Commands.literal("addpoi")
-                        .then(Commands.argument("point of interest", StringArgumentType.string())
+                        .then(Commands.argument("point of interest name", StringArgumentType.string())
                                 .then(Commands.argument("x coordinate", IntegerArgumentType.integer())
                                         .then(Commands.argument("y coordinate", IntegerArgumentType.integer())
                                                 .then(Commands.argument("z coordinate", IntegerArgumentType.integer())
                                                         .executes(RegionAddPoiCmd::execute))))))
                 .then(Commands.literal("removepoi")
-                        .then(Commands.argument("poi index", IntegerArgumentType.integer())
+                        .then(Commands.argument("poi name", StringArgumentType.string())
                                 .executes(RegionRemovePoiCmd::execute)))
                 .build());
     }

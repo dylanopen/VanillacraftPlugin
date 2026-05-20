@@ -9,34 +9,20 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class VoteCmd {
+public class VoteRunCmd {
     public static int execute(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         Player mcplayer = (Player) ctx.getSource().getExecutor();
         ServerPlayer player = ServerPlayer.fromMinecraftUuid(mcplayer.getUniqueId());
-        Region region = (PlayerRegion.fromPlayer(player)).region;
-        Vote vote = Vote.fromPlayerId(player.id);
+        Region region = PlayerRegion.fromPlayer(player).region;
 
-
-
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy");
-        String now = format.format(date);
-        String nextVote = "";
-        int timeToNextVote = 1;
-
-
-        if (now == "20-05-26"){
-//            if ()
-        }
-        else {
-            mcplayer.sendMessage(Component.text("There is currently no vote at the moment, the next vote is in " + timeToNextVote));
+        if (region == null){
+            mcplayer.sendMessage(Component.text("You are not in a region"));
             return 0;
         }
 
-
+        mcplayer.sendMessage(Component.text("You have become a candidate for the " + region.name + " region"));
+        Candidate candidate = new Candidate(player, region);
+        candidate.save();
         return 1;
     }
 }
