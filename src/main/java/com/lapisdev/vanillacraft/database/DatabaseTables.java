@@ -18,6 +18,7 @@ public class DatabaseTables {
 
             createTable("player_login (player_id INTEGER, login_time INTEGER, login_world STRING, login_x DOUBLE, login_y DOUBLE, login_z DOUBLE)");
             createTable("ban (ban_id INTEGER PRIMARY KEY AUTOINCREMENT, player_id INTEGER, ban_reason TEXT, ban_end_time LONG)");
+            createTable("vote (vote_id INTEGER PRIMARY KEY AUTOINCREMENT, player_id INTEGER, region_id INTEGER, candidate_id INTEGER");
         });
     }
 }

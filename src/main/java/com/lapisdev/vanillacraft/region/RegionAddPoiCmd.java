@@ -1,0 +1,35 @@
+package com.lapisdev.vanillacraft.region;
+
+import com.lapisdev.vanillacraft.player.ServerPlayer;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Player;
+
+public class RegionAddPoiCmd {
+    public static int execute(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        Player mcplayer = (Player) ctx.getSource().getExecutor();
+        ServerPlayer player = ServerPlayer.fromMinecraftUuid(mcplayer.getUniqueId());
+        Region region = (PlayerRegion.fromPlayer(player)).region;
+        ServerPlayer leader = region.leader;
+
+        if (leader == player){
+            if ((region.poiLocations).size() <= 5){
+                region.poiLocations.add(ctx.getArgument("point of interest", String.class) + " - " +
+                        ctx.getArgument("x coordinate", Integer.class) + ctx.getArgument("y coordinate", Integer.class) + ctx.getArgument("z coordinate", Integer.class));
+                region.save();
+                mcplayer.sendMessage(Component.text("You have added a new POI to your region"));
+                return 1;
+            }
+            else {
+                mcplayer.sendMessage(Component.text("You already have 5 POIs marked, use /region removepoi if you want to change any of them"));
+                return 0;
+            }
+        }
+        else{
+            mcplayer.sendMessage(Component.text("You are not a leader of a region"));
+            return 0;
+        }
+    }
+}
