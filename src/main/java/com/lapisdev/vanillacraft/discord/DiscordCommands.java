@@ -28,7 +28,11 @@ public class DiscordCommands {
 
                 staffCmd(Commands.slash("maintenance-on", "Put the Minecraft server under maintenance, kicking all non-staff members after 10 seconds.")),
 
-                staffCmd(Commands.slash("maintenance-off", "Take the Minecraft server out of maintenance mode, allowing all members to join again."))
+                staffCmd(Commands.slash("maintenance-off", "Take the Minecraft server out of maintenance mode, allowing all members to join again.")),
+
+		staffCmd(Commands.slash("staffrole-add", "Add a staff role to a player")
+		    .addOptions(new OptionData(OptionType.USER, "user", "The user to add the staff role to"))
+		    .addOptions(new OptionData(OptionType.STRING, "role", "The staff role to add, e.g. `staff`, `admin`, etc.")))
         ).queue();
     }
 
