@@ -7,6 +7,8 @@ import org.bukkit.Location;
 import javax.annotation.Nullable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.lapisdev.vanillacraft.database.Query.sqlSelect;
 import static com.lapisdev.vanillacraft.database.Query.sqlUpdateOrInsert;
@@ -38,9 +40,9 @@ public class Region {
     }
 
     public void save() {
-        sqlUpdateOrInsert("update region set region_name = ?, spawn_world = ?, spawn_x = ?, spawn_y = ?, spawn_z = ?, leader_id = ? where region_id = ?",
-                "insert into region (region_name, spawn_world, spawn_x, spawn_y, spawn_z, leader_id) values (?, ?, ?, ?, ?, ?)",
-                name, spawn.getWorld().getName(), spawn.getX(), spawn.getY(), spawn.getZ(), leader.id, id);
+        sqlUpdateOrInsert("update region set region_name = ?, spawn_x = ?, spawn_y = ?, spawn_z = ?, leader_id = ? where region_id = ?",
+                "insert into region (region_name, spawn_x, spawn_y, spawn_z, leader_id) values (?, ?, ?, ?, ?, ?)",
+                name, spawn.getX(), spawn.getY(), spawn.getZ(), leader.id, id);
     }
 
     private static @Nullable Region fromResultSet(ResultSet rs) {

@@ -4,7 +4,11 @@ import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
+import net.kyori.adventure.text.Component;
+
+import java.awt.*;
 
 import static com.lapisdev.vanillacraft.database.Query.sqlDelete;
 
@@ -16,12 +20,12 @@ public class TeamAcceptCmd {
         Team team = Team.fromTeamName(name);
 
         if (team == null) {
-            mcplayer.sendMessage("That team does not exist.");
+            mcplayer.sendMessage(Component.text("That team does not exist", NamedTextColor.RED));
             return 0;
         }
 
         if(!TeamInvite.playerHasInvite(player, team)) {
-            mcplayer.sendMessage("You do not have an invite from that team");
+            mcplayer.sendMessage(Component.text("You do not have an invite from that team", NamedTextColor.RED));
             return 0;
         }
 
