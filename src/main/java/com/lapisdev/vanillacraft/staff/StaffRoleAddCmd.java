@@ -15,6 +15,11 @@ public class StaffRoleAddCmd extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
 	if (!e.getName().equals("staffrole-add")) return;
 
+	if (!e.getMember().hasPermission(net.dv8tion.jda.api.Permission.ADMINISTRATOR)) {
+	    e.reply("You don't have permission to make players staff").setEphemeral(true).queue();
+	    return;
+	}
+
 	String staffRoleName = e.getOption("role").getAsString();
 	StaffRole staffRole = StaffRole.fromName(staffRoleName);
 	if (staffRole == null) {
@@ -40,8 +45,8 @@ public class StaffRoleAddCmd extends ListenerAdapter {
 	// add discord role
 	e.getGuild().addRoleToMember(targetPlayer, e.getGuild().getRoleById(staffRole.discordRoleId)).queue();
 
-	String title = "Added staff role " + staffRole.name + " to " + targetPlayer.getAsMention();
-	String description = targetPlayer.getAsMention() + " now has the " + staffRole.name + " staff role and can use its permissions in-game and in discord.";
+	String title = "Added '" + staffRole.name + "' to " + targetPlayer.getName();
+	String description = targetPlayer.getAsMention() + " now has the " + staffRole.name + " `staff` role and can use its permissions in-game and in discord.";
 	e.replyEmbeds(new Embed()
 		.infoColor()
 		.title(title)
