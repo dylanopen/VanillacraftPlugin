@@ -5,6 +5,7 @@ import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.staff.PlayerStaffRole;
 import com.lapisdev.vanillacraft.task.RunTask;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -15,7 +16,7 @@ public class Maintenance {
 
     public static void enable() {
         enabled = true;
-        Bukkit.getServer().sendMessage(Component.text("The server is under maintenance! You will be kicked in 10 seconds."));
+        Bukkit.getServer().sendMessage(Component.text("The server is under maintenance! You will be kicked in 10 seconds.", NamedTextColor.RED));
         RunTask.async(_ -> Maintenance.kickMembers(), 20*10);
     }
 

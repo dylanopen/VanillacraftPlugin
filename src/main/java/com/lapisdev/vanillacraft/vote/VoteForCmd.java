@@ -12,6 +12,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class VoteForCmd {
@@ -25,15 +26,11 @@ public class VoteForCmd {
         OfflinePlayer bukkitPlayer = Bukkit.getOfflinePlayer(candidateName);
         ServerPlayer candidate = ServerPlayer.fromMinecraftUuid(bukkitPlayer.getUniqueId());
 
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy");
-        String now = format.format(date);
-        String nextVote = "";
-        int timeToNextVote = 1;
-        System.currentTimeMillis();
-
-
-        if (now == "20-05-26"){
+//        LocalDate currentDate = LocalDate.now();
+//        int day = currentDate.getDayOfMonth();
+//
+//
+//        if (day == 1){
 //            if (candidate )
 //
 //
@@ -43,11 +40,11 @@ public class VoteForCmd {
 //            }
 //            vote.save();
 
-        }
-        else {
-            mcplayer.sendMessage(Component.text("There is currently no vote at the moment, the next vote is in " + timeToNextVote));
-            return 0;
-        }
+//        }
+//        else {
+//            mcplayer.sendMessage(Component.text("There is currently no vote at the moment, the next vote is in " + timeToNextVote));
+//            return 0;
+//        }
 
 
         return 1;

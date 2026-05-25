@@ -5,6 +5,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 public class TeamInviteCmd {
@@ -19,7 +21,7 @@ public class TeamInviteCmd {
         Team team = Team.fromTeamLeader(player);
 
         if (team == null){
-            mcplayer.sendMessage("You do not own a team");
+            mcplayer.sendMessage(Component.text("You do not own a team", NamedTextColor.RED));
             return 0;
         }
 
@@ -28,7 +30,7 @@ public class TeamInviteCmd {
         invite.team = team;
         invite.save();
 
-        mcplayer.sendMessage("You have invited " + targetMCPlayer.getName() + " to " + team.name);
+        mcplayer.sendMessage(Component.text("You have invited " + targetMCPlayer.getName() + " to " + team.name, NamedTextColor.GREEN));
         return 1;
     }
 }

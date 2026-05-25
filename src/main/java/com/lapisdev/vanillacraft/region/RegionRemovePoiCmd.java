@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class RegionRemovePoiCmd {
         String targetName = ctx.getArgument("poi name", String.class);
 
         if (leader.id != player.id) {
-            mcplayer.sendMessage(Component.text("You are not a leader of a region"));
+            mcplayer.sendMessage(Component.text("You are not a leader of a region", NamedTextColor.RED));
             return 0;
         }
 
@@ -34,7 +35,7 @@ public class RegionRemovePoiCmd {
             }
         }
         if (!poiExists){
-            mcplayer.sendMessage(Component.text("You do not have a POI with that name"));
+            mcplayer.sendMessage(Component.text("You do not have a POI with that name", NamedTextColor.RED));
             return 0;
         }
 

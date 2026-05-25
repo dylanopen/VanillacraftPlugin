@@ -33,6 +33,9 @@ public class RegionModule {
                 .then(Commands.literal("removepoi")
                         .then(Commands.argument("poi name", StringArgumentType.string())
                                 .executes(RegionRemovePoiCmd::execute)))
+                .then(Commands.literal("switch")
+                        .then(Commands.argument("region name", StringArgumentType.string())
+                                .executes(RegionSwitchCmd::execute)))
                 .build());
     }
 }
