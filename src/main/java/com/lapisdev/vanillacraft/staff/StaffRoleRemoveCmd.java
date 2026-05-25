@@ -2,6 +2,7 @@ package com.lapisdev.vanillacraft.staff;
 
 import org.bukkit.Bukkit;
 
+import com.lapisdev.vanillacraft.database.Query;
 import com.lapisdev.vanillacraft.discord.Embed;
 import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.task.RunTask;
@@ -10,13 +11,13 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class StaffRoleAddCmd extends ListenerAdapter {
+public class StaffRoleRemoveCmd extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
-	if (!e.getName().equals("staffrole-add")) return;
+	if (!e.getName().equals("staffrole-remove")) return;
 
 	if (!e.getMember().hasPermission(net.dv8tion.jda.api.Permission.ADMINISTRATOR)) {
-	    e.reply("You don't have permission to make players staff").setEphemeral(true).queue();
+	    e.reply("You don't have permission to remove a player's staff").setEphemeral(true).queue();
 	    return;
 	}
 
@@ -33,20 +34,24 @@ public class StaffRoleAddCmd extends ListenerAdapter {
 	    e.reply("No player with that name found").setEphemeral(true).queue();
 	    return;
 	}
-	
-	PlayerStaffRole playerStaffRole = new PlayerStaffRole(player, staffRole);
-	playerStaffRole.save();
 
-	// add to luckperms in-game
+	if (PlayerStaffRole.fromPlayer(player).stream().noneMatch(psr -> psr.staffRole.id == staffRole.id)) {
+	    e.reply(targetPlayer.getAsMention() + " doesn't have the " + staffRole.name + " `staff` role").setEphemeral(true).queue();
+	    return;
+	}
+
+	Query.sqlDelete("delete from player_staff_role where player_id = ? and staff_role_id = ?", player.id, staffRole.id);
+
+	// remove luckperms role in-game
 	RunTask.sync(() -> {
-	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.minecraftUuid + " parent add " + staffRole.luckpermsGroup);
+	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.minecraftUuid + " parent remove " + staffRole.luckpermsGroup);
 	});
 
-	// add discord role
-	e.getGuild().addRoleToMember(targetPlayer, e.getGuild().getRoleById(staffRole.discordRoleId)).queue();
+	// remove discord role
+	e.getGuild().removeRoleFromMember(targetPlayer, e.getGuild().getRoleById(staffRole.discordRoleId)).queue();
 
-	String title = "Added '" + staffRole.name + "' to " + targetPlayer.getName();
-	String description = targetPlayer.getAsMention() + " now has the " + staffRole.name + " `staff` role and can use its permissions in-game and in discord.";
+	String title = "Removed '" + staffRole.name + "' from " + targetPlayer.getName();
+	String description = targetPlayer.getAsMention() + " no longer has the " + staffRole.name + " `staff` role and cannot use its permissions in-game and in discord.";
 	e.replyEmbeds(new Embed()
 		.resultColor()
 		.title(title)
