@@ -37,9 +37,11 @@ public class StaffRoleAddCmd extends ListenerAdapter {
 	PlayerStaffRole playerStaffRole = new PlayerStaffRole(player, staffRole);
 	playerStaffRole.save();
 
+	String playerName = Bukkit.getOfflinePlayer(player.minecraftUuid).getName();
+
 	// add to luckperms in-game
 	RunTask.sync(() -> {
-	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.minecraftUuid + " parent add " + staffRole.luckpermsGroup);
+	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + playerName + " parent add " + staffRole.luckpermsGroup);
 	});
 
 	// add discord role

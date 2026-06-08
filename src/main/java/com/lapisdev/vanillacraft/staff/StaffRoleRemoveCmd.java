@@ -42,9 +42,11 @@ public class StaffRoleRemoveCmd extends ListenerAdapter {
 
 	Query.sqlDelete("delete from player_staff_role where player_id = ? and staff_role_id = ?", player.id, staffRole.id);
 
+	String playerName = Bukkit.getOfflinePlayer(player.minecraftUuid).getName();
+
 	// remove luckperms role in-game
 	RunTask.sync(() -> {
-	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.minecraftUuid + " parent remove " + staffRole.luckpermsGroup);
+	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + playerName + " parent remove " + staffRole.luckpermsGroup);
 	});
 
 	// remove discord role

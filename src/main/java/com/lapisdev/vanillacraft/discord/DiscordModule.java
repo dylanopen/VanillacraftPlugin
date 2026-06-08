@@ -1,7 +1,5 @@
 package com.lapisdev.vanillacraft.discord;
 
-import com.lapisdev.vanillacraft.link.LinkModule;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
