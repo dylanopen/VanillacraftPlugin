@@ -69,9 +69,11 @@ public class GameEventListener implements Listener {
         RunTask.async(_ -> {
             ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId());
             Advancement advancement = e.getAdvancement();
+	    if (advancement.getDisplay() == null) return; 
+
             Component advancementNameComponent = advancement.getDisplay() != null ? advancement.getDisplay().title() : Component.text(advancement.getKey().getKey());
             String advancementName = PlainTextComponentSerializer.plainText().serialize(advancementNameComponent);
-            Component advancementInfoComponent = advancement.getDisplay() != null ? advancement.getDisplay().description() : Component.text("No advancement information found.");
+            Component advancementInfoComponent = advancement.getDisplay().description();
             String advancementInfo = PlainTextComponentSerializer.plainText().serialize(advancementInfoComponent);
 
             GameChatDiscord.send(player, new Embed().infoColor()
