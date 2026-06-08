@@ -53,7 +53,7 @@ public class StaffRoleRemoveCmd extends ListenerAdapter {
 	e.getGuild().removeRoleFromMember(targetPlayer, e.getGuild().getRoleById(staffRole.discordRoleId)).queue();
 
 	String title = "Removed '" + staffRole.name + "' from " + targetPlayer.getName();
-	String description = targetPlayer.getAsMention() + " no longer has the " + staffRole.name + " `staff` role and cannot use its permissions in-game and in discord.";
+	String description = targetPlayer.getAsMention() + " no longer has the `" + staffRole.name + "` staff role and cannot use its permissions in-game and in discord.";
 	e.replyEmbeds(new Embed()
 		.resultColor()
 		.title(title)
