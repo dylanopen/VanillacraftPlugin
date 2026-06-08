@@ -33,20 +33,29 @@ public class StaffRoleAddCmd extends ListenerAdapter {
 	    e.reply("No player with that name found").setEphemeral(true).queue();
 	    return;
 	}
+
+	for (PlayerStaffRole existingStaffRole : PlayerStaffRole.fromPlayer(player)) {
+	    if (existingStaffRole.staffRole.id == staffRole.id) {
+		e.reply("They already have that staff role!").setEphemeral(true).queue();
+		return;
+	    }
+	}
 	
 	PlayerStaffRole playerStaffRole = new PlayerStaffRole(player, staffRole);
 	playerStaffRole.save();
 
+	String playerName = Bukkit.getOfflinePlayer(player.minecraftUuid).getName();
+
 	// add to luckperms in-game
 	RunTask.sync(() -> {
-	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.minecraftUuid + " parent add " + staffRole.luckpermsGroup);
+	    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + playerName + " parent add " + staffRole.luckpermsGroup);
 	});
 
 	// add discord role
 	e.getGuild().addRoleToMember(targetPlayer, e.getGuild().getRoleById(staffRole.discordRoleId)).queue();
 
 	String title = "Added '" + staffRole.name + "' to " + targetPlayer.getName();
-	String description = targetPlayer.getAsMention() + " now has the " + staffRole.name + " `staff` role and can use its permissions in-game and in discord.";
+	String description = targetPlayer.getAsMention() + " now has the `" + staffRole.name + "` role and can use its permissions in-game and in discord.";
 	e.replyEmbeds(new Embed()
 		.resultColor()
 		.title(title)

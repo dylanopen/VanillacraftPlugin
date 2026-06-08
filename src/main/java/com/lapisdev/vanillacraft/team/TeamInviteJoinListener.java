@@ -14,9 +14,8 @@ public class TeamInviteJoinListener implements Listener {
         ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId());
         ArrayList<TeamInvite> teamInvites = TeamInvite.fromPlayer(player);
         for (TeamInvite teamInvite : teamInvites) {
-            Team team = Team.fromTeamId(teamInvite.id);
-            e.getPlayer().sendMessage(Component.text("You have been invited to team '" + team.name + "'!" +
-                    "\nRun /team accept " + team.name + " to join, or /team reject " + team.name + " to decline."));
+            e.getPlayer().sendMessage(Component.text("You have been invited to team '" + teamInvite.team.name + "'!" +
+                    "\nRun /team accept " + teamInvite.team.name + " to join, or /team reject " + teamInvite.team.name + " to decline."));
         }
     }
 }
