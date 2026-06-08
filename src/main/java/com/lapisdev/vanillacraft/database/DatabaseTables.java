@@ -12,7 +12,7 @@ public class DatabaseTables {
             createTable("player_region (player_id INTEGER PRIMARY KEY, region_id INTEGER)");
             createTable("team (team_id INTEGER PRIMARY KEY AUTOINCREMENT, team_name TEXT, team_suffix TEXT, team_leader INTEGER)");
             createTable("player_team (player_id INTEGER PRIMARY KEY, team_id INTEGER)");
-            createTable("staff_role (staff_role_id INTEGER PRIMARY KEY AUTOINCREMENT, staff_role_name TEXT, staff_role_luckperms_group TEXT)");
+            createTable("staff_role (staff_role_id INTEGER PRIMARY KEY AUTOINCREMENT, staff_role_name TEXT, staff_role_luckperms_group TEXT, staff_role_discord_role_id TEXT)");
             createTable("player_staff_role (player_id INTEGER, staff_role_id INTEGER)");
             createTable("team_invite (team_invite_id INTEGER PRIMARY KEY AUTOINCREMENT, player_id INTEGER, team_id INTEGER)");
 
