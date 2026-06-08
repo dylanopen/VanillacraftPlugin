@@ -4,6 +4,8 @@ import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 public class TeamCreateCmd {
@@ -14,22 +16,22 @@ public class TeamCreateCmd {
         ServerPlayer player = ServerPlayer.fromMinecraftUuid(mcplayer.getUniqueId());
 
         if (suffix.length() > 6) {
-            mcplayer.sendMessage("The team suffix must be at most 5 letters long");
+            mcplayer.sendMessage(Component.text("The team suffix must be at most 5 letters long", NamedTextColor.RED));
             return 0;
         }
 
         if (Team.fromTeamName(name) != null) {
-            mcplayer.sendMessage("There is already a team with that name");
+            mcplayer.sendMessage(Component.text("There is already a team with that name", NamedTextColor.RED));
             return 0;
         }
 
         if (Team.fromTeamSuffix(suffix) != null) {
-            mcplayer.sendMessage("There is already a team with that name");
+            mcplayer.sendMessage(Component.text("There is already a team with that name", NamedTextColor.RED));
             return 0;
         }
 
         if (Team.fromTeamLeader(player) != null) {
-            mcplayer.sendMessage("You already have made a team");
+            mcplayer.sendMessage(Component.text("You already have made a team", NamedTextColor.RED));
             return 0;
         }
 
@@ -43,8 +45,7 @@ public class TeamCreateCmd {
         team = Team.fromTeamName(name);
 
         new PlayerTeam(player, team).save();
-        mcplayer.sendMessage("You have created team " + name + " with the suffix [" + suffix.toUpperCase() + "]");
-
+        mcplayer.sendMessage(Component.text("You have created team " + name + " with the suffix [" + suffix.toUpperCase() + "]", NamedTextColor.GREEN));
         return 1;
     }
 }

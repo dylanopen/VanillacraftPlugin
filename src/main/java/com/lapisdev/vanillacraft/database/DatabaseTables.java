@@ -8,8 +8,6 @@ public class DatabaseTables {
     public static void createTables() {
         RunTask.async((task) -> {
             createTable("player (player_id INTEGER PRIMARY KEY AUTOINCREMENT, discord_uuid TEXT, minecraft_uuid TEXT, unique(discord_uuid, minecraft_uuid))");
-            createTable("region (region_id INTEGER PRIMARY KEY AUTOINCREMENT, region_name TEXT, spawn_x DOUBLE, spawn_y DOUBLE, spawn_z DOUBLE, leader_id INTEGER)");
-            createTable("player_region (player_id INTEGER PRIMARY KEY, region_id INTEGER)");
             createTable("team (team_id INTEGER PRIMARY KEY AUTOINCREMENT, team_name TEXT, team_suffix TEXT, team_leader INTEGER)");
             createTable("player_team (player_id INTEGER PRIMARY KEY, team_id INTEGER)");
             createTable("staff_role (staff_role_id INTEGER PRIMARY KEY AUTOINCREMENT, staff_role_name TEXT, staff_role_luckperms_group TEXT, staff_role_discord_role_id TEXT)");

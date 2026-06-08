@@ -1,7 +1,6 @@
 package com.lapisdev.vanillacraft.link;
 
 import com.lapisdev.vanillacraft.player.ServerPlayer;
-import com.lapisdev.vanillacraft.region.RegionRandomiser;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -41,11 +40,6 @@ public class LinkQuestionSubmitListener extends ListenerAdapter {
                     .setEphemeral(true).queue();
             return;
         }
-
-        String regionName = RegionRandomiser.placeInRandomRegion(player);
-        e.reply("Thanks! You have successfully linked your discord account to your Minecraft account and can join vanillacraft.org to start playing :)\n" +
-                        "You have been placed in the **" + regionName + "** region, and will start out there!")
-                .setEphemeral(true).queue();
 
         e.getMember().modifyNickname(minecraftUsername).queue();
     }

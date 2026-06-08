@@ -2,6 +2,7 @@ package com.lapisdev.vanillacraft.team;
 
 import com.lapisdev.vanillacraft.player.ServerPlayer;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -15,7 +16,7 @@ public class TeamInviteJoinListener implements Listener {
         ArrayList<TeamInvite> teamInvites = TeamInvite.fromPlayer(player);
         for (TeamInvite teamInvite : teamInvites) {
             e.getPlayer().sendMessage(Component.text("You have been invited to team '" + teamInvite.team.name + "'!" +
-                    "\nRun /team accept " + teamInvite.team.name + " to join, or /team reject " + teamInvite.team.name + " to decline."));
+                    "\nRun /team accept " + teamInvite.team.name + " to join, or /team reject " + teamInvite.team.name + " to decline.", NamedTextColor.GREEN));
         }
     }
 }

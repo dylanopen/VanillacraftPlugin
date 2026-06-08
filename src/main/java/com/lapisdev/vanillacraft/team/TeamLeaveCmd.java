@@ -4,6 +4,8 @@ import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import static com.lapisdev.vanillacraft.database.Query.sqlDelete;
@@ -15,14 +17,12 @@ public class TeamLeaveCmd {
         Team team = Team.fromTeamMember(player);
 
         if (team == null){
-            mcplayer.sendMessage("You are not in a team");
+            mcplayer.sendMessage(Component.text("You are not in a team", NamedTextColor.RED));
             return 0;
         }
 
         sqlDelete("delete from player_team where player_id = ?", player);
-
-        mcplayer.sendMessage("You have left " + team.name);
-
+        mcplayer.sendMessage(Component.text("You have left " + team.name, NamedTextColor.GREEN));
         return 1;
     }
 }
