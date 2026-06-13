@@ -2,6 +2,7 @@ package com.lapisdev.vanillacraft.gamechat;
 
 import com.lapisdev.vanillacraft.discord.Embed;
 import com.lapisdev.vanillacraft.player.ServerPlayer;
+import com.lapisdev.vanillacraft.vanish.VanishModule;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -26,6 +27,7 @@ public class PlayerlistCmd extends ListenerAdapter {
 
         for (Player mcPlayer : Bukkit.getOnlinePlayers()) {
             ServerPlayer player = ServerPlayer.fromMinecraftUuid(mcPlayer.getUniqueId());
+            if (VanishModule.vanishedPlayers.contains((player.id))) continue;
             User discordUser = jda.getUserById(player.discordUuid);
             playerList.append("- ").append(discordUser.getAsMention());
         }
