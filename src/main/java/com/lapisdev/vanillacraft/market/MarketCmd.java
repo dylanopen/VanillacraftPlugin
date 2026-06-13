@@ -57,9 +57,20 @@ public class MarketCmd {
     }
 
     private static Component formatShopItem(ShopItem item) {
-        return Component.text(item.material.name() + ": ", NamedTextColor.YELLOW)
+        String materialName = formatMaterial(item.material);
+        return Component.text(materialName + ": ", NamedTextColor.YELLOW)
                 .append(Component.text(item.quantity + " for " + item.price + " ", NamedTextColor.WHITE))
                 .append(Component.text("(Stock: " + item.stock + ") ", NamedTextColor.GRAY))
                 .append(Component.text("@ " + item.location.getBlockX() + " " + item.location.getBlockY() + " " + item.location.getBlockZ(), NamedTextColor.AQUA));
+    }
+
+    public static String formatMaterial(org.bukkit.Material material) {
+        String name = material.name().toLowerCase().replace("_", " ");
+        String[] words = name.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            sb.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1)).append(" ");
+        }
+        return sb.toString().trim();
     }
 }

@@ -81,14 +81,15 @@ public class MarketListener implements Listener {
             shopItem.save();
 
             // Format the sign
+            String formattedMaterial = MarketCmd.formatMaterial(material);
             event.line(0, Component.text("Buy ", NamedTextColor.WHITE)
                     .append(Component.text(quantity, NamedTextColor.GOLD)));
-            event.line(1, Component.text(material.name(), NamedTextColor.YELLOW));
+            event.line(1, Component.text(formattedMaterial, NamedTextColor.YELLOW));
             event.line(2, Component.text("for ", NamedTextColor.WHITE)
                     .append(Component.text(price, NamedTextColor.AQUA))
                     .append(Component.text(" diamonds", NamedTextColor.WHITE)));
             
-            player.sendMessage(Component.text("Shop created for " + material.name() + " at " + price + " diamonds for " + quantity + ".", NamedTextColor.GREEN));
+            player.sendMessage(Component.text("Shop created for " + formattedMaterial + " at " + price + " diamonds for " + quantity + ".", NamedTextColor.GREEN));
         } catch (NumberFormatException ignored) {
             // Not a shop sign or invalid format
         }
@@ -100,8 +101,17 @@ public class MarketListener implements Listener {
         if (block.getState() instanceof org.bukkit.block.Sign) {
             ShopItem shopItem = ShopItem.fromSignLocation(block.getLocation());
             if (shopItem != null) {
+                Player player = event.getPlayer();
+                ServerPlayer serverPlayer = ServerPlayer.fromMinecraftUuid(player.getUniqueId());
+                
+                if (serverPlayer == null || shopItem.owner.id != serverPlayer.id) {
+                    player.sendMessage(Component.text("You do not own this shop!", NamedTextColor.RED));
+                    event.setCancelled(true);
+                    return;
+                }
+                
                 shopItem.delete();
-                event.getPlayer().sendMessage(Component.text("Shop removed.", NamedTextColor.YELLOW));
+                player.sendMessage(Component.text("Shop removed.", NamedTextColor.YELLOW));
             }
         }
     }
