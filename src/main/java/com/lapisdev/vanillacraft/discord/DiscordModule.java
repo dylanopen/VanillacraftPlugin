@@ -11,6 +11,7 @@ public class DiscordModule {
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
         new DiscordCommands();
+        jda.addEventListener(new McmdCmd());
 
         try {
             jda.awaitReady();
