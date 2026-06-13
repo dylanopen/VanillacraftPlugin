@@ -11,6 +11,7 @@ import com.lapisdev.vanillacraft.maintenance.MaintenanceModule;
 import com.lapisdev.vanillacraft.newspawn.NewSpawnModule;
 import com.lapisdev.vanillacraft.staff.StaffRoleModule;
 import com.lapisdev.vanillacraft.team.TeamModule;
+import com.lapisdev.vanillacraft.vanish.VanishModule;
 import com.lapisdev.vanillacraft.whitelist.WhitelistModule;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -28,6 +29,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
     MaintenanceModule maintenanceModule;
     TeamModule teamModule;
     StaffRoleModule staffRoleModule;
+    VanishModule vanishModule;
 
     @Override
     public void onEnable() {
@@ -43,6 +45,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
         maintenanceModule = new MaintenanceModule();
         teamModule = new TeamModule();
 	staffRoleModule = new StaffRoleModule();
+	vanishModule = new VanishModule();
     }
 
     @Override
