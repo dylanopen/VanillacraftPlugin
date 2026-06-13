@@ -38,7 +38,10 @@ public class DiscordCommands {
                         .addOptions(new OptionData(OptionType.USER, "user", "The user to remove the staff role from"))
                         .addOptions(new OptionData(OptionType.STRING, "role", "The staff role to remove, e.g. `staff`, `admin`, etc."))),
 
-                staffCmd(Commands.slash("playerlist", "List all members currently playing on Vanillacraft."))
+                staffCmd(Commands.slash("playerlist", "List all members currently playing on Vanillacraft.")),
+
+                staffCmd(Commands.slash("mcmd", "Run a Minecraft command from Discord")
+                        .addOptions(new OptionData(OptionType.STRING, "command", "The command to run", true)))
         ).queue();
     }
 
