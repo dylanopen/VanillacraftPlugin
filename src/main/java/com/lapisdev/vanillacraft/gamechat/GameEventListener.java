@@ -3,6 +3,7 @@ package com.lapisdev.vanillacraft.gamechat;
 import com.lapisdev.vanillacraft.discord.Embed;
 import com.lapisdev.vanillacraft.player.ServerPlayer;
 import com.lapisdev.vanillacraft.task.RunTask;
+import com.lapisdev.vanillacraft.vanish.VanishModule;
 import net.dv8tion.jda.api.entities.User;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -23,6 +24,12 @@ public class GameEventListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         RunTask.async(_ -> {
             ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId());
+
+            if (VanishModule.vanishedPlayers.contains(player.id)) {
+                e.joinMessage(null);
+                return;
+            };
+
             if (!e.getPlayer().hasPlayedBefore()) {
                 User discordUser = jda.retrieveUserById(player.discordUuid).complete();
                 GameChatDiscord.send(player, new Embed().resultColor()
@@ -56,6 +63,11 @@ public class GameEventListener implements Listener {
                 playersOnline += mcPlayer.getName() + ", ";
             }
 
+            if (VanishModule.vanishedPlayers.contains(player.id)) {
+                e.quitMessage(null);
+                return;
+            };
+
             GameChatDiscord.send(player, new Embed().warnColor()
                     .title(e.getPlayer().getName() + " left the Minecraft server!")
                     .description("Players online: " + playersOnline)
@@ -68,9 +80,13 @@ public class GameEventListener implements Listener {
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         RunTask.async(_ -> {
             ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getPlayer().getUniqueId());
-            Advancement advancement = e.getAdvancement();
-	    if (advancement.getDisplay() == null) return; 
+            if (VanishModule.vanishedPlayers.contains(player.id)) {
+                e.message(Component.text("***")); // doesn't work
+                return;
+            };
 
+            Advancement advancement = e.getAdvancement();
+            if (advancement.getDisplay() == null) return;
             Component advancementNameComponent = advancement.getDisplay() != null ? advancement.getDisplay().title() : Component.text(advancement.getKey().getKey());
             String advancementName = PlainTextComponentSerializer.plainText().serialize(advancementNameComponent);
             Component advancementInfoComponent = advancement.getDisplay().description();
@@ -90,6 +106,12 @@ public class GameEventListener implements Listener {
             if (!e.getShowDeathMessages()) return;
             ServerPlayer player = ServerPlayer.fromMinecraftUuid(e.getEntity().getUniqueId());
             String deathMessage = e.getDeathMessage();
+
+            if (VanishModule.vanishedPlayers.contains(player.id)) {
+                e.deathMessage(Component.text("***")); // doesn't work
+                return;
+            };
+
             GameChatDiscord.send(player, new Embed().infoColor()
                     .title(deathMessage)
                     .thumbnail(null)

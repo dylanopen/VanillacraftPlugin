@@ -30,13 +30,15 @@ public class DiscordCommands {
 
                 staffCmd(Commands.slash("maintenance-off", "Take the Minecraft server out of maintenance mode, allowing all members to join again.")),
 
-		staffCmd(Commands.slash("staffrole-add", "Add a staff role to a player")
-		    .addOptions(new OptionData(OptionType.USER, "user", "The user to add the staff role to"))
-		    .addOptions(new OptionData(OptionType.STRING, "role", "The staff role to add, e.g. `staff`, `admin`, etc."))),
+                staffCmd(Commands.slash("staffrole-add", "Add a staff role to a player")
+                        .addOptions(new OptionData(OptionType.USER, "user", "The user to add the staff role to"))
+                        .addOptions(new OptionData(OptionType.STRING, "role", "The staff role to add, e.g. `staff`, `admin`, etc."))),
 
-		staffCmd(Commands.slash("staffrole-remove", "Remove a staff role from a player")
-		    .addOptions(new OptionData(OptionType.USER, "user", "The user to remove the staff role from"))
-		    .addOptions(new OptionData(OptionType.STRING, "role", "The staff role to remove, e.g. `staff`, `admin`, etc.")))
+                staffCmd(Commands.slash("staffrole-remove", "Remove a staff role from a player")
+                        .addOptions(new OptionData(OptionType.USER, "user", "The user to remove the staff role from"))
+                        .addOptions(new OptionData(OptionType.STRING, "role", "The staff role to remove, e.g. `staff`, `admin`, etc."))),
+
+                staffCmd(Commands.slash("playerlist", "List all members currently playing on Vanillacraft."))
         ).queue();
     }
 
