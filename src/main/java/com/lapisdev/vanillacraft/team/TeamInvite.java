@@ -1,7 +1,6 @@
 package com.lapisdev.vanillacraft.team;
 
 import com.lapisdev.vanillacraft.player.ServerPlayer;
-import com.lapisdev.vanillacraft.region.PlayerRegion;
 
 import javax.annotation.Nullable;
 import java.sql.ResultSet;

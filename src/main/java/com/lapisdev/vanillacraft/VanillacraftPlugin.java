@@ -8,22 +8,26 @@ import com.lapisdev.vanillacraft.kick.KickModule;
 import com.lapisdev.vanillacraft.link.LinkModule;
 import com.lapisdev.vanillacraft.log.login.LoginModule;
 import com.lapisdev.vanillacraft.maintenance.MaintenanceModule;
-import com.lapisdev.vanillacraft.newspawn.NewSpawnModule;
+import com.lapisdev.vanillacraft.other.CommandRegistry;
+import com.lapisdev.vanillacraft.other.EventRegistry;
+import com.lapisdev.vanillacraft.other.SpectateCmd;
 import com.lapisdev.vanillacraft.staff.StaffRoleModule;
 import com.lapisdev.vanillacraft.team.TeamModule;
 import com.lapisdev.vanillacraft.vanish.VanishModule;
 import com.lapisdev.vanillacraft.whitelist.WhitelistModule;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class VanillacraftPlugin extends JavaPlugin {
+    public static VanillacraftPlugin plugin;
+
     DiscordModule discordModule;
     LinkModule linkModule;
     KickModule kickModule;
     WhitelistModule whitelistModule;
     LoginModule loginModule;
-    NewSpawnModule newSpawnModule;
     GameChatModule gameChatModule;
     BanModule banModule;
     MaintenanceModule maintenanceModule;
@@ -33,19 +37,22 @@ public final class VanillacraftPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        VanillacraftPlugin.plugin = this;
+        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, registry -> CommandRegistry.register(registry.registrar()));
+        EventRegistry.register();
+
         Database.init();
         discordModule = new DiscordModule();
         linkModule = new LinkModule();
         kickModule = new KickModule();
         whitelistModule = new WhitelistModule();
         loginModule = new LoginModule();
-        newSpawnModule = new NewSpawnModule();
         gameChatModule = new GameChatModule();
         banModule = new BanModule();
         maintenanceModule = new MaintenanceModule();
         teamModule = new TeamModule();
-	staffRoleModule = new StaffRoleModule();
-	vanishModule = new VanishModule();
+	      staffRoleModule = new StaffRoleModule();
+        vanishModule = new VanishModule();
     }
 
     @Override
