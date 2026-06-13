@@ -8,6 +8,7 @@ import com.lapisdev.vanillacraft.kick.KickModule;
 import com.lapisdev.vanillacraft.link.LinkModule;
 import com.lapisdev.vanillacraft.log.login.LoginModule;
 import com.lapisdev.vanillacraft.maintenance.MaintenanceModule;
+import com.lapisdev.vanillacraft.market.MarketModule;
 import com.lapisdev.vanillacraft.other.CommandRegistry;
 import com.lapisdev.vanillacraft.other.EventRegistry;
 import com.lapisdev.vanillacraft.other.SpectateCmd;
@@ -34,6 +35,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
     TeamModule teamModule;
     StaffRoleModule staffRoleModule;
     VanishModule vanishModule;
+    MarketModule marketModule;
 
     @Override
     public void onEnable() {
@@ -53,6 +55,7 @@ public final class VanillacraftPlugin extends JavaPlugin {
         teamModule = new TeamModule();
 	      staffRoleModule = new StaffRoleModule();
         vanishModule = new VanishModule();
+        marketModule = new MarketModule();
     }
 
     @Override
